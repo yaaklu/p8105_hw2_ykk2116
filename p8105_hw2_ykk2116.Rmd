@@ -1,0 +1,17 @@
+---
+title: "P8105_hw2_ykk2116"
+author: "Yaa Klu"
+date: "10/1/2018"
+output: html_document
+---
+
+
+```{r}
+
+"./data/NYC_Transit_Subway_Entrance_And_Exit_Data (1).csv"
+NYC_subway = read_csv (file =  "./data/NYC_Transit_Subway_Entrance_And_Exit_Data (1).csv")
+
+
+
+```
+
