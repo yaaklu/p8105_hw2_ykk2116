@@ -38,3 +38,22 @@ sum(entry_vending$entry_no_vending)/nrow(entry_vending)
 
 
 
+```{r}
+
+reformatted_nyc_subway = nyc_subway %>%
+  gather(key = route, value = train, route1:route11) %>%
+  separate(route, into = c("remove1", "route"), sep = 5) %>%
+  select(everything(), -remove1) %>% 
+  distinct(line, station_name, train, ada) %>% 
+  filter(train == "A")
+ 
+nrow(reformatted_nyc_subway)
+
+sum(reformatted_nyc_subway$ada)
+
+```
+
+
+
+
+
