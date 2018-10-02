@@ -8,19 +8,33 @@ output: html_document
 Accessing data file. Reading and cleaning dataset
 ```{r}
 
-NYC_subway = read_csv(file =  "./data/NYC_Transit_Subway_Entrance_And_Exit_Data (1).csv") %>%
+nyc_subway = read_csv(file =  "./data/NYC_Transit_Subway_Entrance_And_Exit_Data (1).csv") %>%
 janitor::clean_names() %>%
 select(line, station_name, station_latitude, station_longitude, route1:route11, entry, vending, entrance_type, ada) %>%
-mutate(entry=recode(entry, "YES"= TRUE, "NO" = FALSE))
+mutate(entry = recode(entry, "YES"= TRUE, "NO" = FALSE))
  
 ```
 
 
 
+```{r}
+unique_stations = distinct(nyc_subway, line, station_name, ada)
+
+nrow(unique_stations)
+
+sum(unique_stations$ada)
+
+```
+
 
 ```{r}
 
-
-
+entry_vending = nyc_subway %>%
+mutate(vending = recode(vending, "YES" = TRUE, "NO" = FALSE),
+       entry_no_vending = !(vending == entry))
+sum(entry_vending$entry_no_vending)/nrow(entry_vending)       
+       
 ```
+
+
 
