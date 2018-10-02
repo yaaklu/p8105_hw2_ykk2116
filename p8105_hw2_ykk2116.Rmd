@@ -125,7 +125,25 @@ mutate(excellent_verygood = excellent | very_good)
 
 Questions
 
+```{r}
+nrow(distinct(brfss_data, locationabbr))
 
+most_observed_state = count(brfss_data, locationabbr) %>%
+  top_n(1, n) 
+
+pull(most_observed_state, locationabbr)   
+
+pull(most_observed_state, n)
+
+```
+
+```{r}
+
+
+
+
+
+```
 
 
 
