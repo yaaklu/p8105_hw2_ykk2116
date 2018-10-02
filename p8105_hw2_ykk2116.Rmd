@@ -81,6 +81,18 @@ precipitation_2017 = readxl::read_excel("./data/HealthyHarborWaterWheelTotals201
     filter(!is.na(total))
 ```
 
+Combining the two datasets
+```{r}
+precipitation_2016_2017 = bind_rows(precipitation_2016, precipitation_2017)
+
+month_vector =  month.name[c(pull(precipitation_2016_2017, month))]
+ 
+month_df = tibble::as.tibble(month_vector) 
+
+final_precipitation_2016_2017 = bind_cols(precipitation_2016_2017, month_df) %>%
+  select(-month) %>%
+  select(year, month = value, total)
+```
 
 
 
