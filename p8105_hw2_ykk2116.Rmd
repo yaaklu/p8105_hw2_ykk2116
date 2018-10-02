@@ -59,5 +59,15 @@ sum(reformatted_nyc_subway$ada)
 
 ### Problem 2
 
+```{r}
+
+trash_wheel = readxl::read_excel("./data/HealthyHarborWaterWheelTotals2017-9-26.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N258") %>%
+janitor::clean_names(dat = .) %>%
+  filter(!is.na(dumpster)) %>%
+  mutate(sports_balls = as.integer(sports_balls))
+
+```
+
+
 
 
