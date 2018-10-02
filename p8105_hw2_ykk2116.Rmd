@@ -5,8 +5,13 @@ date: "10/1/2018"
 output: html_document
 ---
 
+### Problem 1
+
 Accessing data file. Reading and cleaning dataset
 ```{r}
+
+library(tidyverse) 
+
 
 nyc_subway = read_csv(file =  "./data/NYC_Transit_Subway_Entrance_And_Exit_Data (1).csv") %>%
 janitor::clean_names() %>%
@@ -14,7 +19,6 @@ select(line, station_name, station_latitude, station_longitude, route1:route11, 
 mutate(entry = recode(entry, "YES"= TRUE, "NO" = FALSE))
  
 ```
-
 
 
 ```{r}
@@ -53,7 +57,7 @@ sum(reformatted_nyc_subway$ada)
 
 ```
 
-
+### Problem 2
 
 
 
