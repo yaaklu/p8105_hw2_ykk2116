@@ -139,9 +139,26 @@ pull(most_observed_state, n)
 
 ```{r}
 
+bdata_2002 = brfss_data %>% 
+  filter(year == 2002)
 
+median(bdata_2002$excellent, na.rm = TRUE) 
 
+```
 
+```{r}
+ggplot(bdata_2002, aes(x = excellent)) + 
+  geom_histogram(binwidth = 0.5)
+
+```
+
+```{r}
+
+brfss_data %>% 
+  filter(locationdesc %in% c("NY - New York County", "NY - Queens County"), year %in% c("2002":"2012")) %>% 
+  ggplot(aes(x = year, y = excellent, color = locationdesc)) +
+  geom_point() +
+scale_x_continuous(breaks = c(2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010))
 
 ```
 
@@ -150,6 +167,19 @@ pull(most_observed_state, n)
 
 
 
+```{r}
 
+```
 
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
 
