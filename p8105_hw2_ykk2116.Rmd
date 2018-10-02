@@ -14,9 +14,9 @@ library(tidyverse)
 
 
 nyc_subway = read_csv(file =  "./data/NYC_Transit_Subway_Entrance_And_Exit_Data (1).csv") %>%
-janitor::clean_names() %>%
+janitor::clean_names(dat = .) %>%
 select(line, station_name, station_latitude, station_longitude, route1:route11, entry, vending, entrance_type, ada) %>%
-mutate(entry = recode(entry, "YES"= TRUE, "NO" = FALSE))
+mutate(entry = recode(entry, "YES"=  TRUE, "NO" = FALSE))
  
 ```
 
@@ -93,6 +93,45 @@ final_precipitation_2016_2017 = bind_cols(precipitation_2016_2017, month_df) %>%
   select(-month) %>%
   select(year, month = value, total)
 ```
+
+
+```{r}
+median_balls_2016 = trash_wheel %>% 
+  filter(year == 2016) 
+```
+
+
+Problem 3
+
+```{r}
+devtools::install_github("p8105/p8105.datasets")
+
+library(p8105.datasets)
+
+data(brfss_smart2010)
+
+```
+
+
+```{r}
+brfss_data = janitor::clean_names(dat = brfss_smart2010) %>%
+  filter(topic == "Overall Health") %>%
+  select(-(class:question), -sample_size, -(confidence_limit_low:geo_location)) %>%
+  spread(key = response, value = data_value) %>%
+  janitor::clean_names(dat = .) %>%   
+mutate(excellent_verygood = excellent | very_good)
+ 
+```
+
+Questions
+
+
+
+
+
+
+
+
 
 
 
