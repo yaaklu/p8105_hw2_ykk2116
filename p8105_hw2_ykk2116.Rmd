@@ -69,5 +69,18 @@ janitor::clean_names(dat = .) %>%
 ```
 
 
+Importing and cleaning 2016 and 2017 precipitation data
+```{r}
+precipitation_2016 = readxl::read_excel("./data/HealthyHarborWaterWheelTotals2017-9-26.xlsx", sheet = "2016 Precipitation", range = "A2:B14") %>%
+  janitor::clean_names(dat = .) %>%
+  mutate(year = 2016) 
+
+precipitation_2017 = readxl::read_excel("./data/HealthyHarborWaterWheelTotals2017-9-26.xlsx", sheet = "2017 Precipitation", range = "A2:B14") %>%  
+  janitor::clean_names(dat = .) %>%
+  mutate(year = 2017) %>%
+    filter(!is.na(total))
+```
+
+
 
 
