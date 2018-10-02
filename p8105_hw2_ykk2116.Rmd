@@ -5,11 +5,20 @@ date: "10/1/2018"
 output: html_document
 ---
 
-
+Accessing data file. Reading and cleaning dataset
 ```{r}
 
-"./data/NYC_Transit_Subway_Entrance_And_Exit_Data (1).csv"
-NYC_subway = read_csv (file =  "./data/NYC_Transit_Subway_Entrance_And_Exit_Data (1).csv")
+NYC_subway = read_csv(file =  "./data/NYC_Transit_Subway_Entrance_And_Exit_Data (1).csv") %>%
+janitor::clean_names() %>%
+select(line, station_name, station_latitude, station_longitude, route1:route11, entry, vending, entrance_type, ada) %>%
+mutate(entry=recode(entry, "YES"= TRUE, "NO" = FALSE))
+ 
+```
+
+
+
+
+```{r}
 
 
 
