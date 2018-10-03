@@ -16,7 +16,7 @@ library(tidyverse)
 nyc_subway = read_csv(file =  "./data/NYC_Transit_Subway_Entrance_And_Exit_Data (1).csv") %>%
 janitor::clean_names(dat = .) %>%
 select(line, station_name, station_latitude, station_longitude, route1:route11, entry, vending, entrance_type, ada) %>%
-mutate(entry = recode(entry, "YES"=  TRUE, "NO" = FALSE))
+mutate(entry = recode(entry, "YES" =  TRUE, "NO" = FALSE))
  
 ```
 
@@ -119,7 +119,7 @@ brfss_data = janitor::clean_names(dat = brfss_smart2010) %>%
   select(-(class:question), -sample_size, -(confidence_limit_low:geo_location)) %>%
   spread(key = response, value = data_value) %>%
   janitor::clean_names(dat = .) %>%   
-mutate(excellent_verygood = excellent | very_good)
+mutate(excellent_verygood = excellent + very_good)
  
 ```
 
@@ -137,6 +137,7 @@ pull(most_observed_state, n)
 
 ```
 
+
 ```{r}
 
 bdata_2002 = brfss_data %>% 
@@ -146,11 +147,13 @@ median(bdata_2002$excellent, na.rm = TRUE)
 
 ```
 
+
 ```{r}
 ggplot(bdata_2002, aes(x = excellent)) + 
   geom_histogram(binwidth = 0.5)
 
 ```
+
 
 ```{r}
 
@@ -162,24 +165,4 @@ scale_x_continuous(breaks = c(2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 20
 
 ```
 
-
-
-
-
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
-
-```{r}
-
-```
 
