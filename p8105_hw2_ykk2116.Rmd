@@ -62,6 +62,7 @@ _The number of distinct stations that serve the A train is `r nrow(reformatted_n
 
 ### Problem 2
 
+Loading, reading and cleaning dataset
 ```{r}
 trash_wheel = readxl::read_excel("./data/HealthyHarborWaterWheelTotals2017-9-26.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N258") %>%
 janitor::clean_names(dat = .) %>%
@@ -69,8 +70,7 @@ janitor::clean_names(dat = .) %>%
   mutate(sports_balls = as.integer(sports_balls))
 ```
 
-
-Importing and cleaning 2016 and 2017 precipitation data
+Reading and cleaning 2016 and 2017 precipitation data
 ```{r}
 precipitation_2016 = readxl::read_excel("./data/HealthyHarborWaterWheelTotals2017-9-26.xlsx", sheet = "2016 Precipitation", range = "A2:B14") %>%
   janitor::clean_names(dat = .) %>%
