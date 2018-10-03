@@ -9,39 +9,38 @@ output: html_document
 
 Loading tidyverse, accessing data file and reading/cleaning dataset
 ```{r}
-
 library(tidyverse) 
 
 nyc_subway = read_csv(file =  "./data/NYC_Transit_Subway_Entrance_And_Exit_Data (1).csv") %>%
 janitor::clean_names(dat = .) %>%
 select(line, station_name, station_latitude, station_longitude, route1:route11, entry, vending, entrance_type, ada) %>%
 mutate(entry = recode(entry, "YES" =  TRUE, "NO" = FALSE))
- 
 ```
 
-_The dataset contains information on the subway stations and railway tracks in New York City. The variables in the dataset include the different railway lines, the names of the stations, the directions of the railway lines in terms of longitudes and latitudes, the routes used, information on vending accessibility and information on their ada compliance._ 
+_The dataset contains information on the subway stations and railway tracks in New York City. The variables in the dataset include the different railway lines, the names of the stations, the directions of the railway lines in terms of longitudes and latitudes, the routes used, information on vending accessibility and information on their ADA compliance._ 
 
 _Using the code chunk above, the variable names were cleaned by turning them into lowercase letters, and spaces between the variable names were replaced with underscores. The code also selects the specific variables as instructed and the entry variable was also chagned from a factor into a logical variable._
 
+_The dataset has `r nrow(nyc_subway)` rows and `r ncol(nyc_subway)` columns. At this point the dataset is not entirely tidy because input for route are spread across 11 different columns and also the route number is part of the variable name of route._
 
 
+Distinct stations, stations which are ADA complaint 
 ```{r}
 unique_stations = distinct(nyc_subway, line, station_name, ada)
 
 nrow(unique_stations)
 
 sum(unique_stations$ada)
-
 ```
 
+_There are `r nrow(nyc_subway)` distinct stations and `r sum(unique_stations$ada)` of these distinct stations are ADA compliant._
 
+Stations without vending, but with entrance/exits. 
 ```{r}
-
 entry_vending = nyc_subway %>%
 mutate(vending = recode(vending, "YES" = TRUE, "NO" = FALSE),
        entry_no_vending = !(vending == entry))
 sum(entry_vending$entry_no_vending)/nrow(entry_vending)       
-       
 ```
 
 
