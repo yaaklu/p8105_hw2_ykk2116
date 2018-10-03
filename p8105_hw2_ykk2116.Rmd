@@ -1,17 +1,16 @@
 ---
 title: "P8105_hw2_ykk2116"
-author: "Yaa Klu"
+author: "Yaa Asantewaa Klu"
 date: "10/1/2018"
 output: html_document
 ---
 
 ### Problem 1
 
-Accessing data file. Reading and cleaning dataset
+Loading tidyverse, accessing data file and reading/cleaning dataset
 ```{r}
 
 library(tidyverse) 
-
 
 nyc_subway = read_csv(file =  "./data/NYC_Transit_Subway_Entrance_And_Exit_Data (1).csv") %>%
 janitor::clean_names(dat = .) %>%
@@ -19,6 +18,11 @@ select(line, station_name, station_latitude, station_longitude, route1:route11, 
 mutate(entry = recode(entry, "YES" =  TRUE, "NO" = FALSE))
  
 ```
+
+_The dataset contains information on the subway stations and railway tracks in New York City. The variables in the dataset include the different railway lines, the names of the stations, the directions of the railway lines in terms of longitudes and latitudes, the routes used, information on vending accessibility and information on their ada compliance._ 
+
+_Using the code chunk above, the variable names were cleaned by turning them into lowercase letters, and spaces between the variable names were replaced with underscores. The code also selects the specific variables as instructed and the entry variable was also chagned from a factor into a logical variable._
+
 
 
 ```{r}
@@ -101,7 +105,7 @@ median_balls_2016 = trash_wheel %>%
 ```
 
 
-Problem 3
+### Problem 3
 
 ```{r}
 devtools::install_github("p8105/p8105.datasets")
