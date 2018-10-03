@@ -32,7 +32,6 @@ nrow(unique_stations)
 
 sum(unique_stations$ada)
 ```
-
 _There are `r nrow(nyc_subway)` distinct stations and `r sum(unique_stations$ada)` of these distinct stations are ADA compliant._
 
 Stations without vending, but with entrance/exits. 
@@ -42,11 +41,10 @@ mutate(vending = recode(vending, "YES" = TRUE, "NO" = FALSE),
        entry_no_vending = !(vending == entry))
 sum(entry_vending$entry_no_vending)/nrow(entry_vending)       
 ```
+_There proportion of stations with entrance/exits but with no vending is `r sum(entry_vending$entry_no_vending)/nrow(entry_vending)`._
 
-
-
+Reformatted data so that route number and route name are distinct variables
 ```{r}
-
 reformatted_nyc_subway = nyc_subway %>%
   gather(key = route, value = train, route1:route11) %>%
   separate(route, into = c("remove1", "route"), sep = 5) %>%
@@ -57,18 +55,18 @@ reformatted_nyc_subway = nyc_subway %>%
 nrow(reformatted_nyc_subway)
 
 sum(reformatted_nyc_subway$ada)
-
 ```
+_The number of distinct stations that serve the A train is `r nrow(reformatted_nyc_subway)` and `r sum(reformatted_nyc_subway$ada)` are ADA compliant.
+
+
 
 ### Problem 2
 
 ```{r}
-
 trash_wheel = readxl::read_excel("./data/HealthyHarborWaterWheelTotals2017-9-26.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N258") %>%
 janitor::clean_names(dat = .) %>%
   filter(!is.na(dumpster)) %>%
   mutate(sports_balls = as.integer(sports_balls))
-
 ```
 
 
