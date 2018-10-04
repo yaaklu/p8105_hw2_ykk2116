@@ -82,7 +82,7 @@ precipitation_2017 = readxl::read_excel("./data/HealthyHarborWaterWheelTotals201
     filter(!is.na(total))
 ```
 
-Combining the two datasets
+Combining the two (2016 and 2017) datasets
 ```{r}
 precipitation_2016_2017 = bind_rows(precipitation_2016, precipitation_2017)
 
@@ -95,22 +95,26 @@ final_precipitation_2016_2017 = bind_cols(precipitation_2016_2017, month_df) %>%
   select(year, month = value, total)
 ```
 
-
+Median number of sports balls in a dumpster in 2016
 ```{r}
 median_balls_2016 = trash_wheel %>% 
   filter(year == 2016) 
 ```
 
+_Mr. Trash Wheel dataset has information on a water wheel waste collector and it comprise of `r nrow(trash_wheel)` rows x r `r ncol(trash_wheel)` and this was observed after data cleaning. The key variables in the dataset include: dates (month, year, date) of trash collection, weight/volume (weight_tons, volume_cubic_yards) of trash collected and the types of trash collected (plastic_bottles, glass_bottles, grocery_bags, sports_balls, chip_bags)._
+
+_The 2016 and 2017 dataset contains information on precipitation (total variable) measurements for each month (month variable) in 2016 and 2017. For the 2016 precipitation dataset, there are `r nrow(precipitation_2016)` rows and `r ncol(precipitation_2016)`. For the 2017 precipitation dataset, there are `r nrow(precipitation_2017)` rows and `r ncol(precipitation_2017)` columns._
+
+_The total precipitation in 2017 was `r sum(precipitation_2017$total)` and the median number of sports balls was `r median(median_balls_2016$sports_balls)`
+
 
 ### Problem 3
-
 ```{r}
 devtools::install_github("p8105/p8105.datasets")
 
 library(p8105.datasets)
 
 data(brfss_smart2010)
-
 ```
 
 
@@ -121,7 +125,6 @@ brfss_data = janitor::clean_names(dat = brfss_smart2010) %>%
   spread(key = response, value = data_value) %>%
   janitor::clean_names(dat = .) %>%   
 mutate(excellent_verygood = excellent + very_good)
- 
 ```
 
 Questions
@@ -135,35 +138,29 @@ most_observed_state = count(brfss_data, locationabbr) %>%
 pull(most_observed_state, locationabbr)   
 
 pull(most_observed_state, n)
-
 ```
 
 
 ```{r}
-
 bdata_2002 = brfss_data %>% 
   filter(year == 2002)
 
 median(bdata_2002$excellent, na.rm = TRUE) 
-
 ```
 
 
 ```{r}
 ggplot(bdata_2002, aes(x = excellent)) + 
   geom_histogram(binwidth = 0.5)
-
 ```
 
 
 ```{r}
-
 brfss_data %>% 
   filter(locationdesc %in% c("NY - New York County", "NY - Queens County"), year %in% c("2002":"2012")) %>% 
   ggplot(aes(x = year, y = excellent, color = locationdesc)) +
   geom_point() +
 scale_x_continuous(breaks = c(2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010))
-
 ```
 
 
