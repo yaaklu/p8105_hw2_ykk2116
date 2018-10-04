@@ -56,7 +56,7 @@ nrow(reformatted_nyc_subway)
 
 sum(reformatted_nyc_subway$ada)
 ```
-_The number of distinct stations that serve the A train is `r nrow(reformatted_nyc_subway)` and `r sum(reformatted_nyc_subway$ada)` are ADA compliant.
+_The number of distinct stations that serve the A train is `r nrow(reformatted_nyc_subway)` and `r sum(reformatted_nyc_subway$ada)` are ADA compliant._
 
 
 
@@ -105,7 +105,7 @@ _Mr. Trash Wheel dataset has information on a water wheel waste collector and it
 
 _The 2016 and 2017 dataset contains information on precipitation (total variable) measurements for each month (month variable) in 2016 and 2017. For the 2016 precipitation dataset, there are `r nrow(precipitation_2016)` rows and `r ncol(precipitation_2016)`. For the 2017 precipitation dataset, there are `r nrow(precipitation_2017)` rows and `r ncol(precipitation_2017)` columns._
 
-_The total precipitation in 2017 was `r sum(precipitation_2017$total)` and the median number of sports balls was `r median(median_balls_2016$sports_balls)`
+_The total precipitation in 2017 was `r sum(precipitation_2017$total)` and the median number of sports balls was `r median(median_balls_2016$sports_balls)`_
 
 
 ### Problem 3
@@ -129,7 +129,7 @@ brfss_data = janitor::clean_names(dat = brfss_smart2010) %>%
 mutate(excellent_verygood = excellent + very_good)
 ```
 
-
+Questions 
 ```{r}
 nrow(distinct(brfss_data, locationabbr))
 
@@ -140,6 +140,9 @@ pull(most_observed_state, locationabbr)
 
 pull(most_observed_state, n)
 ```
+_The dataset has `r nrow(distinct(brfss_data, locationabbr)` unique locations. Yes, every state is represented in the dataset. It also contains the federal district of the United States, District of Columbia._
+
+_The state that is observed the most is `r most_observed_state, locationabbr)` and it is observed, having `r pull(most_observed_state, n)`counties._
 
 
 ```{r}
@@ -149,7 +152,6 @@ bdata_2002 = brfss_data %>%
 median(bdata_2002$excellent, na.rm = TRUE) 
 ```
 _In 2002, the median value of the "Excellent" response value is `r median(bdata_2002$excellent, na.rm = TRUE)`_
-
 
 
 Plots 
