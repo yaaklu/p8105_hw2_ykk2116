@@ -7,7 +7,9 @@ output: html_document
 
 ### Problem 1
 
-Loading tidyverse, accessing data file and reading/cleaning dataset
+
+_Loading tidyverse, accessing data file and reading/cleaning dataset_
+
 ```{r}
 library(tidyverse) 
 
@@ -17,14 +19,16 @@ select(line, station_name, station_latitude, station_longitude, route1:route11, 
 mutate(entry = recode(entry, "YES" =  TRUE, "NO" = FALSE))
 ```
 
-_The dataset contains information on the subway stations and railway tracks in New York City. The variables in the dataset include the different railway lines, the names of the stations, the directions of the railway lines in terms of longitudes and latitudes, the routes used, information on vending accessibility and information on their ADA compliance._ 
 
-_Using the code chunk above, the variable names were cleaned by turning them into lowercase letters, and spaces between the variable names were replaced with underscores. The code also selects the specific variables as instructed and the entry variable was also chagned from a factor into a logical variable._
+** The dataset contains information on the subway stations and railway tracks in New York City. The variables in the dataset include the different railway lines, the names of the stations, the directions of the railway lines in terms of longitudes and latitudes, the routes used, information on vending accessibility and information on their ADA compliance. **
 
-_The dataset has `r nrow(nyc_subway)` rows and `r ncol(nyc_subway)` columns. At this point the dataset is not entirely tidy because input for route are spread across 11 different columns and also the route number is part of the variable name of route._
+** Using the code chunk above, the variable names were cleaned by turning them into lowercase letters, and spaces between the variable names were replaced with underscores. The code also selects the specific variables as instructed and the entry variable was also chagned from a factor into a logical variable.**
+
+** The dataset has `r nrow(nyc_subway)` rows and `r ncol(nyc_subway)` columns. At this point the dataset is not entirely tidy because input for route are spread across 11 different columns and also the route number is part of the variable name of route. **
 
 
-Distinct stations, stations which are ADA complaint 
+_Distinct stations, stations which are ADA complaint_
+
 ```{r}
 unique_stations = distinct(nyc_subway, line, station_name, ada)
 
@@ -32,18 +36,24 @@ nrow(unique_stations)
 
 sum(unique_stations$ada)
 ```
-_There are `r nrow(nyc_subway)` distinct stations and `r sum(unique_stations$ada)` of these distinct stations are ADA compliant._
 
-Stations without vending, but with entrance/exits. 
+** There are `r nrow(nyc_subway)` distinct stations and `r sum(unique_stations$ada)` of these distinct stations are ADA compliant. **
+
+
+_Stations without vending, but with entrance/exits_
+
 ```{r}
 entry_vending = nyc_subway %>%
 mutate(vending = recode(vending, "YES" = TRUE, "NO" = FALSE),
        entry_no_vending = !(vending == entry))
 sum(entry_vending$entry_no_vending)/nrow(entry_vending)       
 ```
-_There proportion of stations with entrance/exits but with no vending is `r sum(entry_vending$entry_no_vending)/nrow(entry_vending)`._
 
-Reformatted data so that route number and route name are distinct variables
+** There proportion of stations with entrance/exits but with no vending is `r sum(entry_vending$entry_no_vending)/nrow(entry_vending)`. **
+
+
+_Reformatted data so that route number and route name are distinct variables_
+
 ```{r}
 reformatted_nyc_subway = nyc_subway %>%
   gather(key = route, value = train, route1:route11) %>%
@@ -56,13 +66,15 @@ nrow(reformatted_nyc_subway)
 
 sum(reformatted_nyc_subway$ada)
 ```
-_The number of distinct stations that serve the A train is `r nrow(reformatted_nyc_subway)` and `r sum(reformatted_nyc_subway$ada)` are ADA compliant._
+
+** The number of distinct stations that serve the A train is `r nrow(reformatted_nyc_subway)` and `r sum(reformatted_nyc_subway$ada)` are ADA compliant. **
 
 
 
 ### Problem 2
 
-Loading, reading and cleaning dataset
+_Loading, reading and cleaning dataset_
+
 ```{r}
 trash_wheel = readxl::read_excel("./data/HealthyHarborWaterWheelTotals2017-9-26.xlsx", sheet = "Mr. Trash Wheel", range = "A2:N258") %>%
 janitor::clean_names(dat = .) %>%
@@ -70,7 +82,8 @@ janitor::clean_names(dat = .) %>%
   mutate(sports_balls = as.integer(sports_balls))
 ```
 
-Reading and cleaning 2016 and 2017 precipitation data
+_Reading and cleaning 2016 and 2017 precipitation data_
+
 ```{r}
 precipitation_2016 = readxl::read_excel("./data/HealthyHarborWaterWheelTotals2017-9-26.xlsx", sheet = "2016 Precipitation", range = "A2:B14") %>%
   janitor::clean_names(dat = .) %>%
@@ -82,7 +95,9 @@ precipitation_2017 = readxl::read_excel("./data/HealthyHarborWaterWheelTotals201
     filter(!is.na(total))
 ```
 
-Combining the two (2016 and 2017) datasets
+
+_Combining the two (2016 and 2017) datasets_
+
 ```{r}
 precipitation_2016_2017 = bind_rows(precipitation_2016, precipitation_2017)
 
@@ -95,22 +110,26 @@ final_precipitation_2016_2017 = bind_cols(precipitation_2016_2017, month_df) %>%
   select(year, month = value, total)
 ```
 
-Median number of sports balls in a dumpster in 2016
+_Median number of sports balls in a dumpster in 2016_
+
 ```{r}
 median_balls_2016 = trash_wheel %>% 
   filter(year == 2016) 
 ```
 
-_Mr. Trash Wheel dataset has information on a water wheel waste collector and it comprise of `r nrow(trash_wheel)` rows x r `r ncol(trash_wheel)` and this was observed after data cleaning. The key variables in the dataset include: dates (month, year, date) of trash collection, weight/volume (weight_tons, volume_cubic_yards) of trash collected and the types of trash collected (plastic_bottles, glass_bottles, grocery_bags, sports_balls, chip_bags)._
 
-_The 2016 and 2017 dataset contains information on precipitation (total variable) measurements for each month (month variable) in 2016 and 2017. For the 2016 precipitation dataset, there are `r nrow(precipitation_2016)` rows and `r ncol(precipitation_2016)`. For the 2017 precipitation dataset, there are `r nrow(precipitation_2017)` rows and `r ncol(precipitation_2017)` columns._
+** Mr. Trash Wheel dataset has information on a water wheel waste collector and it comprise of `r nrow(trash_wheel)` rows x r `r ncol(trash_wheel)` and this was observed after data cleaning. The key variables in the dataset include: dates (month, year, date) of trash collection, weight/volume (weight_tons, volume_cubic_yards) of trash collected and the types of trash collected (plastic_bottles, glass_bottles, grocery_bags, sports_balls, chip_bags). **
 
-_The total precipitation in 2017 was `r sum(precipitation_2017$total)` and the median number of sports balls was `r median(median_balls_2016$sports_balls)`_
+** The 2016 and 2017 dataset contains information on precipitation (total variable) measurements for each month (month variable) in 2016 and 2017. For the 2016 precipitation dataset, there are `r nrow(precipitation_2016)` rows and `r ncol(precipitation_2016)`. For the 2017 precipitation dataset, there are `r nrow(precipitation_2017)` rows and `r ncol(precipitation_2017)` columns.**
+
+** The total precipitation in 2017 was `r sum(precipitation_2017$total)` and the median number of sports balls was `r median(median_balls_2016$sports_balls)`. **
+
 
 
 ### Problem 3
 
-Loading dataset
+_Loading dataset_
+
 ```{r}
 devtools::install_github("p8105/p8105.datasets")
 
@@ -119,7 +138,9 @@ library(p8105.datasets)
 data(brfss_smart2010)
 ```
 
-Cleaning dataset and data wrangling
+
+_Cleaning dataset and data wrangling_
+
 ```{r}
 brfss_data = janitor::clean_names(dat = brfss_smart2010) %>%
   filter(topic == "Overall Health") %>%
@@ -129,7 +150,8 @@ brfss_data = janitor::clean_names(dat = brfss_smart2010) %>%
 mutate(excellent_verygood = excellent + very_good)
 ```
 
-Questions 
+_Questions_
+
 ```{r}
 nrow(distinct(brfss_data, locationabbr))
 
@@ -140,9 +162,10 @@ pull(most_observed_state, locationabbr)
 
 pull(most_observed_state, n)
 ```
-_The dataset has `r nrow(distinct(brfss_data, locationabbr))` unique locations. Yes, every state is represented in the dataset. It also contains the federal district of the United States, District of Columbia_
 
-_The state that is observed the most is `r pull(most_observed_state, locationabbr)` and it is observed, having `r pull(most_observed_state, n)`counties._
+** The dataset has `r nrow(distinct(brfss_data, locationabbr))` unique locations. Yes, every state is represented in the dataset. It also contains the federal district of the United States, District of Columbia. ** 
+
+** The state that is observed the most is `r pull(most_observed_state, locationabbr)` and it is most observed, having `r pull(most_observed_state, n)` counties. **
 
 
 ```{r}
@@ -151,18 +174,21 @@ bdata_2002 = brfss_data %>%
 
 median(bdata_2002$excellent, na.rm = TRUE) 
 ```
-_In 2002, the median value of the "Excellent" response value is `r median(bdata_2002$excellent, na.rm = TRUE)`_
+
+** In 2002, the median value of the "Excellent" response value is `r median(bdata_2002$excellent, na.rm = TRUE)`. **
 
 
-Plots 
+_Plots_
 
-_Histogram_
+** Histogram **
+
 ```{r}
 ggplot(bdata_2002, aes(x = excellent)) + 
   geom_histogram(binwidth = 0.5)
 ```
 
-_Scatterplot_
+** Scatterplot **
+
 ```{r}
 brfss_data %>% 
   filter(locationdesc %in% c("NY - New York County", "NY - Queens County"), year %in% c("2002":"2012")) %>% 
