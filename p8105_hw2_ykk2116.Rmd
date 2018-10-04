@@ -91,8 +91,7 @@ precipitation_2016 = readxl::read_excel("./data/HealthyHarborWaterWheelTotals201
 
 precipitation_2017 = readxl::read_excel("./data/HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = "2017 Precipitation", range = "A2:B14") %>%  
   janitor::clean_names(dat = .) %>%
-  mutate(year = 2017) %>%
-    filter(!is.na(total))
+  mutate(year = 2017)
 ```
 
 
@@ -118,7 +117,7 @@ median_balls_2016 = trash_wheel %>%
 ```
 
 
-**Mr. Trash Wheel dataset has information on a water wheel waste collector and it comprise of `r nrow(trash_wheel)` rows x r `r ncol(trash_wheel)` and this was observed after data cleaning. The key variables in the dataset include: dates (month, year, date) of trash collection, weight/volume (weight_tons, volume_cubic_yards) of trash collected and the types of trash collected (plastic_bottles, glass_bottles, grocery_bags, sports_balls, chip_bags).**
+**Mr. Trash Wheel dataset has information on a water wheel waste collector and it comprise of `r nrow(trash_wheel)` rows x r `r ncol(trash_wheel)` and this was observed after data cleaning. The key variables in the dataset include: dates (month, year, date) of trash collection, weight/volume (weight_tons, volume_cubic_yards) of trash collected and the types of trash collected (plastic_bottles, glass_bottles, grocery_bags, sports_balls, chip_bags, etc.).**
 
 **The 2016 and 2017 dataset contains information on precipitation (total variable) measurements for each month (month variable) in 2016 and 2017. For the 2016 precipitation dataset, there are `r nrow(precipitation_2016)` rows and `r ncol(precipitation_2016)`. For the 2017 precipitation dataset, there are `r nrow(precipitation_2017)` rows and `r ncol(precipitation_2017)` columns.**
 
