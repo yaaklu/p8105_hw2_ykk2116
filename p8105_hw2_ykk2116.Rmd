@@ -109,6 +109,8 @@ _The total precipitation in 2017 was `r sum(precipitation_2017$total)` and the m
 
 
 ### Problem 3
+
+Loading dataset
 ```{r}
 devtools::install_github("p8105/p8105.datasets")
 
@@ -117,7 +119,7 @@ library(p8105.datasets)
 data(brfss_smart2010)
 ```
 
-
+Cleaning dataset and data wrangling
 ```{r}
 brfss_data = janitor::clean_names(dat = brfss_smart2010) %>%
   filter(topic == "Overall Health") %>%
@@ -127,7 +129,6 @@ brfss_data = janitor::clean_names(dat = brfss_smart2010) %>%
 mutate(excellent_verygood = excellent + very_good)
 ```
 
-Questions
 
 ```{r}
 nrow(distinct(brfss_data, locationabbr))
@@ -147,14 +148,19 @@ bdata_2002 = brfss_data %>%
 
 median(bdata_2002$excellent, na.rm = TRUE) 
 ```
+_In 2002, the median value of the "Excellent" response value is `r median(bdata_2002$excellent, na.rm = TRUE)`_
 
 
+
+Plots 
+
+_Histogram_
 ```{r}
 ggplot(bdata_2002, aes(x = excellent)) + 
   geom_histogram(binwidth = 0.5)
 ```
 
-
+_Scatterplot_
 ```{r}
 brfss_data %>% 
   filter(locationdesc %in% c("NY - New York County", "NY - Queens County"), year %in% c("2002":"2012")) %>% 
