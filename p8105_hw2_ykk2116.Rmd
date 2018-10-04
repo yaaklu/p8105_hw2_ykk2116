@@ -2,7 +2,7 @@
 title: "P8105_hw2_ykk2116"
 author: "Yaa Asantewaa Klu"
 date: "10/1/2018"
-output: html_document
+output: github_document
 ---
 
 ### Problem 1
