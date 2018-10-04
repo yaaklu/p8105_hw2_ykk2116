@@ -140,9 +140,9 @@ pull(most_observed_state, locationabbr)
 
 pull(most_observed_state, n)
 ```
-_The dataset has `r nrow(distinct(brfss_data, locationabbr)` unique locations. Yes, every state is represented in the dataset. It also contains the federal district of the United States, District of Columbia._
+_The dataset has `r nrow(distinct(brfss_data, locationabbr))` unique locations. Yes, every state is represented in the dataset. It also contains the federal district of the United States, District of Columbia_
 
-_The state that is observed the most is `r most_observed_state, locationabbr)` and it is observed, having `r pull(most_observed_state, n)`counties._
+_The state that is observed the most is `r pull(most_observed_state, locationabbr)` and it is observed, having `r pull(most_observed_state, n)`counties._
 
 
 ```{r}
