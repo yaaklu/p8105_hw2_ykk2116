@@ -89,7 +89,7 @@ precipitation_2016 = readxl::read_excel("./data/HealthyHarborWaterWheelTotals201
   janitor::clean_names(dat = .) %>%
   mutate(year = 2016) 
 
-precipitation_2017 = readxl::read_excel(".data/HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = "2017 Precipitation", range = "A2:B14") %>%  
+precipitation_2017 = readxl::read_excel("./data/HealthyHarborWaterWheelTotals2018-7-28.xlsx", sheet = "2017 Precipitation", range = "A2:B14") %>%  
   janitor::clean_names(dat = .) %>%
   mutate(year = 2017) %>%
     filter(!is.na(total))
