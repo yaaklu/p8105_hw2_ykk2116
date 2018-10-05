@@ -45,7 +45,9 @@ _Stations without vending, but with entrance/exits_
 ```{r}
 entry_vending = nyc_subway %>%
 mutate(vending = recode(vending, "YES" = TRUE, "NO" = FALSE),
-       entry_no_vending = !(vending == entry))
+       entry_no_vending = !(vending == entry)) %>%
+  filter(!(vending == TRUE & entry == FALSE))
+
 sum(entry_vending$entry_no_vending)/nrow(entry_vending)       
 ```
 
@@ -162,7 +164,7 @@ pull(most_observed_state, locationabbr)
 pull(most_observed_state, n)
 ```
 
-**The dataset has `r nrow(distinct(brfss_data, locationabbr))` unique locations. Yes, every state is represented in the dataset. It also contains the federal district of the United States, District of Columbia.** 
+**There are `r nrow(distinct(brfss_data, locationdesc))` unique locations and `r nrow(distinct(brfss_data, locationabbr))` states in the dataset. Yes, every state is represented in the dataset. It also contains the federal district of the United States, which is the District of Columbia.** 
 
 **The state that is observed the most is `r pull(most_observed_state, locationabbr)` and it is most observed, having `r pull(most_observed_state, n)` counties.**
 
