@@ -27,7 +27,7 @@ mutate(entry = recode(entry, "YES" =  TRUE, "NO" = FALSE))
 **The dataset has `r nrow(nyc_subway)` rows and `r ncol(nyc_subway)` columns. At this point the dataset is not entirely tidy because input for route are spread across 11 different columns and also the route number is part of the variable name of route.**
 
 
-_Distinct stations, stations which are ADA complaint_
+_Distinct stations, and stations which are ADA complaint_
 
 ```{r}
 unique_stations = distinct(nyc_subway, line, station_name, ada)
