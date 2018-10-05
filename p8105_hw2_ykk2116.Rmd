@@ -22,7 +22,7 @@ mutate(entry = recode(entry, "YES" =  TRUE, "NO" = FALSE))
 
 **The dataset contains information on the subway stations and railway tracks in New York City. The variables in the dataset include the different railway lines, the names of the stations, the directions of the railway lines in terms of longitudes and latitudes, the routes used, information on vending accessibility and information on their ADA compliance.**
 
-**Using the code chunk above, the variable names were cleaned by turning them into lowercase letters, and spaces between the variable names were replaced with underscores. The code also selects the specific variables as instructed and the entry variable was also chagned from a factor into a logical variable.**
+**Using the code chunk above, the variable names were cleaned by turning them into lowercase letters, and spaces between the variable names were replaced with underscores. The code also selects the specific variables as instructed and the entry variable was also changed from a factor variable into a logical variable.**
 
 **The dataset has `r nrow(nyc_subway)` rows and `r ncol(nyc_subway)` columns. At this point the dataset is not entirely tidy because input for route are spread across 11 different columns and also the route number is part of the variable name of route.**
 
@@ -37,6 +37,7 @@ nrow(unique_stations)
 sum(unique_stations$ada)
 ```
 
+
 **There are `r nrow(nyc_subway)` distinct stations and `r sum(unique_stations$ada)` of these distinct stations are ADA compliant.**
 
 
@@ -50,6 +51,7 @@ mutate(vending = recode(vending, "YES" = TRUE, "NO" = FALSE),
 
 sum(entry_vending$entry_no_vending)/nrow(entry_vending)       
 ```
+
 
 **There proportion of stations with entrance/exits but with no vending is `r sum(entry_vending$entry_no_vending)/nrow(entry_vending)`.**
 
@@ -68,6 +70,7 @@ nrow(reformatted_nyc_subway)
 
 sum(reformatted_nyc_subway$ada)
 ```
+
 
 **The number of distinct stations that serve the A train is `r nrow(reformatted_nyc_subway)` and `r sum(reformatted_nyc_subway$ada)` are ADA compliant.**
 
@@ -163,6 +166,7 @@ pull(most_observed_state, locationabbr)
 
 pull(most_observed_state, n)
 ```
+
 
 **There are `r nrow(distinct(brfss_data, locationdesc))` unique locations and `r nrow(distinct(brfss_data, locationabbr))` states in the dataset. Yes, every state is represented in the dataset. It also contains the federal district of the United States, which is the District of Columbia.** 
 
